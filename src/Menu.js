@@ -4,7 +4,18 @@ import { Link, NavLink } from 'react-router-dom';
 function Menu() {
     return(
         <>
-        <nav>
+        <nav> 
+            <ul>
+            {routes.map(route => (
+                <li key={route.to}>
+                    <NavLink
+                    to={route.to}
+                    >
+                        {route.text}
+                    </NavLink>
+
+                </li>
+            ))}
         {/* <nav>
             <ul>
             <li>
@@ -30,26 +41,42 @@ function Menu() {
             <Link to={'/about'}>ABOUT</Link>
             </li>
             </ul> */}
-            <ul>
-                <li>
+            
+                {/* <li>
                     <NavLink
+                    // activeclassname='nav'
                     to={'/'}
                     >HOME</NavLink>
                 </li>
                 <li>
                     <NavLink
+                    // activeclassname='nav-active'
                     to={'/blog'}
                     >BLOG</NavLink>
                 </li>
                 <li>
                     <NavLink
+                    // activeclassname='nav-active'
                     to={'/about'}
                     >ABOUT</NavLink>
-                </li>
+                </li> */}
             </ul>
         </nav>
         </>
     )
 }
+ const routes = [];
+ routes.push({
+    to: '/',
+    text: 'HOME',
+ })
+ routes.push({
+    to: '/blog',
+    text: 'BLOG',
+ })
+ routes.push({
+    to: '/about',
+    text: 'ABOUT',
+ })
 
 export { Menu };
