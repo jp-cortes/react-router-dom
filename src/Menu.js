@@ -1,21 +1,33 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { useAuth } from './auth';
 
 function Menu() {
+    const auth = useAuth();
     return(
         <>
         <nav> 
             <ul>
-            {routes.map(route => (
-                <li key={route.to}>
-                    <NavLink
-                    to={route.to}
-                    >
-                        {route.text}
-                    </NavLink>
+            {routes.map(route => {
+                if(route.private && !auth.user){ 
+                    return null
+                } else if(route.to === '/login' && auth.user){
+                    return null;
+                } else{
+                    return(
+                        <li key={route.to}>
+                            <NavLink
+                            to={route.to}
+                            >
+                                {route.text}
+                            </NavLink>
+        
+                        </li>
+                    )
+                }
 
-                </li>
-            ))}
+                
+            })}
         {/* <nav>
             <ul>
             <li>
@@ -69,14 +81,27 @@ function Menu() {
  routes.push({
     to: '/',
     text: 'HOME',
- })
+    private: false,
+ });
  routes.push({
     to: '/blog',
     text: 'BLOG',
- })
+    private: false,
+ });
  routes.push({
-    to: '/about',
-    text: 'ABOUT',
- })
+    to: '/profile',
+    text: 'PROFILE',
+    private: true,
+ });
+ routes.push({
+    to: '/login',
+    text: 'LOGIN',
+    private: false,
+ });
+ routes.push({
+    to: '/logout',
+    text: 'LOGOUT',
+    private: true,
+ });
 
 export { Menu };
